@@ -2,14 +2,14 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.hostname = "ubuntu"
+  config.vm.hostname = "ubuntu-x86"
 
   ############################################################
   # Provider for Docker on Intel or ARM (aarch64)
   ############################################################
   config.vm.provider :docker do |docker, override|
     override.vm.box = nil
-    docker.image = "andrchi/vagrant-provider:ubuntu"
+    docker.image = "andrchi/vagrant-provider:ubuntu-x86"
     docker.remains_running = true
     docker.has_ssh = true
     docker.privileged = true
