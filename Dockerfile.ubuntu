@@ -1,11 +1,12 @@
-FROM ubuntu:jammy
-LABEL MAINTAINER="John Rofrano <rofrano@gmail.com>"
+FROM ubuntu:22.04
+LABEL MAINTAINER="Andrew Chi <andrchi@cisco.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install packages needed for SSH and interactive OS
 RUN apt-get update && \
     yes | unminimize && \
+    apt-get -y install ca-certificates && \
     apt-get -y install \
         openssh-server \
         passwd \
@@ -28,7 +29,7 @@ RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == system
     rm -f /lib/systemd/system/anaconda.target.wants/*;
 
 # Enable ssh for vagrant
-RUN systemctl enable ssh.service; 
+RUN systemctl enable ssh.service;
 EXPOSE 22
 
 # Create the vagrant user

@@ -1,12 +1,13 @@
 # Build with:
-# docker buildx build --platform linux/amd64,linux/arm64 --push --tag rofrano/vagrant-provider:debian .
-FROM debian:bullseye
-LABEL MAINTAINER="John Rofrano <rofrano@gmail.com>"
+# docker buildx build --platform linux/amd64,linux/arm64 --push --tag andrchi/vagrant-provider:debian .
+FROM debian:12
+LABEL MAINTAINER="Andrew Chi <andrchi@cisco.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install packages needed for SSH and interactive OS
 RUN apt-get update && \
+    apt-get -y install ca-certificates && \
     apt-get -y install \
         openssh-server \
         passwd \
@@ -19,18 +20,18 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Enable systemd (from Matthew Warman's mcwarman/vagrant-provider)
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-    rm -f /lib/systemd/system/multi-user.target.wants/*; \
-    rm -f /etc/systemd/system/*.wants/*; \
-    rm -f /lib/systemd/system/local-fs.target.wants/*; \
-    rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-    rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-    rm -f /lib/systemd/system/basic.target.wants/*; \
-    rm -f /lib/systemd/system/anaconda.target.wants/*; \
-    ln -s /lib/systemd/systemd /usr/sbin/init;
+# RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+#     rm -f /lib/systemd/system/multi-user.target.wants/*; \
+#     rm -f /etc/systemd/system/*.wants/*; \
+#     rm -f /lib/systemd/system/local-fs.target.wants/*; \
+#     rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+#     rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+#     rm -f /lib/systemd/system/basic.target.wants/*; \
+#     rm -f /lib/systemd/system/anaconda.target.wants/*; \
+#     ln -s /lib/systemd/systemd /usr/sbin/init;
 
 # Enable ssh for vagrant
-RUN systemctl enable ssh.service; 
+RUN systemctl enable ssh.service;
 EXPOSE 22
 
 # Create the vagrant user
