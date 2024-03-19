@@ -12,7 +12,7 @@ IMAGE ?= $(REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG)
 # Use the following for single-arch x86_64 (amd64) builds
 PLATFORM ?= "linux/amd64"
 # Use the following for multi-arch builds
-#PLATFORM ?= "linux/amd64,linux/arm64"
+#PLATFORM ?= "linux/amd64,linux/arm64,linux/s390x"
 
 # Set up the Docker build environment
 .EXPORT_ALL_VARIABLES:
