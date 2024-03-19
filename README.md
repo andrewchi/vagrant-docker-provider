@@ -5,7 +5,7 @@
 
 This repo will build a docker image that can be used as a provider for [Vagrant](https://www.vagrantup.com) as a Linux development environment.
 
-The ready made Docker Hub image can be found here: [andrchi/vagrant-provider:ubuntu](https://hub.docker.com/repository/docker/andrchi/vagrant-provider)
+Some ready made Docker Hub images can be found here: [andrchi/vagrant-provider:ubuntu-x86](https://hub.docker.com/repository/docker/andrchi/vagrant-provider)
 
 ## Why Vagrant with Docker?
 
